@@ -1,6 +1,6 @@
-# All of the paremeters used for drawing
+# All of the below paremeters are used for drawing details
 # Note that the paremeters are not dependend of each other so that this gives flexibility
-# For example: youu are free to make thicker lines or smaller boxes
+# For example: you are free to make thicker lines or smaller boxes
 
 #The Border Size around the figure in cm
 borderSize = 1
@@ -202,8 +202,4 @@ printFeedBackPolynomial(lfsrTaps)
 
 #Latex Ends
 printPrologue()
-         
-
-     #278397
-     #272258
-  
+ 
