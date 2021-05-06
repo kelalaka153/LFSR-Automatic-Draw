@@ -1,6 +1,6 @@
-# All the paremeters used for drawing
-# Note that the paremeters are not dependend that gives flexibility
-# YOu are free to make thicker lines or smaller boxes
+# All of the paremeters used for drawing
+# Note that the paremeters are not dependend of each other so that this gives flexibility
+# For example: youu are free to make thicker lines or smaller boxes
 
 #The Border Size around the figure in cm
 borderSize = 1
@@ -53,7 +53,8 @@ def printPreample():
      print("")
      print("\\begin{document}")
      print("\\begin{tikzpicture}[white background]\n\n")
-     
+
+#Latex end
 def printPrologue():
      print("\n\\end{tikzpicture}")
      print("\\end{document}")
@@ -139,15 +140,21 @@ def printFeedBackPolynomial(lfsr):
 
     print('\draw node[minimum size={3}cm,line width={4}cm,font=\\fontsize{{{5}}}{{{5}}}\selectfont] at ({0}, {1}) {{{6}}};'.format(feedBackPolynomailX,feedBackPolynomailY,feedBackPolynomail,boxSize,lineWidth,fontSize,feedBackPolynomail))
 
-    
+###############################
+#  Now definition of the LFSR
+###############################
+
+
 #The taps. left most is the x_0 
 lfsrTaps = [1,0,0,1,0,1,0,1,0,1]
 
 #The inits. left most is the value of x_0 
 initVals = [1,0,1,0,1,1,1,0,0,0]
-    
+
+#We need this inorder to draw the feedback properly
 lastTapPos = 0
 
+#Latex starts
 printPreample()
 
 count = lfsrTaps.count(1)
@@ -193,6 +200,7 @@ printOutputArrow(x + (len(lfsrTaps) -1) * boxSize + boxSize/2, x + (len(lfsrTaps
 
 printFeedBackPolynomial(lfsrTaps)
 
+#Latex Ends
 printPrologue()
          
 
