@@ -1,9 +1,12 @@
-# All of the below paremeters are used for drawing details
+# All of the paremeters used for drawing
 # Note that the paremeters are not dependend of each other so that this gives flexibility
-# For example: you are free to make thicker lines or smaller boxes
+# For example: youu are free to make thicker lines or smaller boxes
 
-#The Border Size around the figure in cm
-borderSize = 1
+#The background color
+backgorundcolor = "white"
+
+#The Border Size around the figure in mm
+borderSize = 15
 
 #All lines, including the boxes
 lineWidth = "0.1"
@@ -30,10 +33,10 @@ xorDistance = boxSize/2
 fontSize = 100
 
 #Set True if you want the LFSR is filled with initial values.
-drawInitValues = True
+drawInitValues = False
 
 #Set True if you want the LFSR's box names are written under.
-printBoxNames = True
+printBoxNames = False
 
 #strating position of the first box.
 x = 25
@@ -44,18 +47,21 @@ lefFeedbackDestance = 2 * boxSize
 
 #Latex preample for standalone Tikz
 def printPreample():
-     print('\\documentclass[convert={{density=300,size=1080x800,outext=.png}},tikz, border={0}cm]{{standalone}}'.format(borderSize))
-     #print("\\usepackage[left=1.5in,top=1.5in,right=1.5in,bottom=1.5in]{geometry}")
+
+     print('\\documentclass[convert={density=300,size=1080x800,outext=.png},tikz]{standalone}')
+
+
      print("\\usepackage{xcolor}")
      print("\\usetikzlibrary{arrows.meta,backgrounds}")
-     print("\\tikzset{{white background/.style={{show background rectangle,tight background,background rectangle/.style={{fill=white}} }} }}")
-#     print("\\tikzset{mynode/.style={draw, fill={{rgb:black,1;white,5}}, minimum size=4cm,line width=0.1cm,font=\fontsize{100}{100}\selectfont, label={[yshift=-6cm,style={font=\fontsize{100}{100} } ] {#1} } }}")
+     print("\\tikzset{{white background/.style={{show background rectangle,tight background,background rectangle/.style={{fill={0} }} }} }}".format(backgorundcolor))
      print("")
      print("\\begin{document}")
      print("\\begin{tikzpicture}[white background]\n\n")
 
 #Latex end
 def printPrologue():
+     #https://tex.stackexchange.com/a/596158/62865
+     print("\\path (current bounding box.north east) +({0}mm,{0}mm) (current bounding box.south west) +(-{0}mm,-{0}mm);".format(borderSize) )
      print("\n\\end{tikzpicture}")
      print("\\end{document}")
      
@@ -68,12 +74,6 @@ def printSquare(x1,y1,value, index):
         print('\t\draw node[draw, fill={7}, minimum size={3}cm,line width={4}cm,font=\\fontsize{{{5}}}{{{5}}}\selectfont, label={{[yshift=-{8}cm,style={{font=\\fontsize{{{5}}}{{{5}}} }} ] {{$x_{6}$}} }} ] at ({0}, {1}) {{{2}}};'.format(x1,y1,value,boxSize,lineWidth,fontSize,index,boxColor,boxBelowTextDistance))
     else:
         print('\t\draw node[draw, fill={6}, minimum size={3}cm,line width={4}cm,font=\\fontsize{{{5}}}{{{5}}}\selectfont] at ({0}, {1}) {{{2}}};'.format(x1,y1,value,boxSize,lineWidth,fontSize,boxColor))
-    
-    #print('\draw [line width={4}]({0},{1}) -- ({2},{1}) -- ({2},{3}) -- ({0},{3}) -- cycle;'.format(x1,y1,x1+size,y1+size,lineWidth))
-    
-#def printSquareWithNoLeftSide(x1,y1,size):
-    
-    #print('\draw [line width={4}]({0},{1}) -- ({2},{1}) -- ({2},{3}) -- ({0},{3});'.format(x1,y1,x1+size,y1+size,lineWidth))
  
 #The arrow from a box to x-or if it is a tap point. 
 def printTapLine(x1,y1,length, arrow=False):
@@ -102,22 +102,14 @@ def printXor(x1,y1):
     
     print('\t\draw [line width={4}cm]({0},{1}) -- ({2},{3});'.format(lx1,ly1,lx2,ly2,cirleLineWidth))
 
-### Combine this with the below into a path.    
-#def printTopLine(x1,y1,x2):
-    #print('\draw [line width={3}cm]({0},{1}) -- ({2},{1});'.format(x1,y1,x2,lineWidth))
-    
-###This needs path. 
-#def printFeedbackArrow(x1,y1,x2,y2):
-    #print('\draw [line width={4}cm]({0},{1}) -- ({2},{3});'.format(x1,y1,x1,y2,lineWidth))
-    #print('\draw [arrows={{-Triangle[angle=90:{5}cm,black,fill=black,line width={4}cm]}}, line width={4}cm]({0},{1}) -- ({2},{3});'.format(x1,y2,x2,y2,lineWidth,arrowHead))
-    
-    ##\draw[->,line width=0.1cm,arrows={-Triangle[angle=90:0.5cm,black,fill=black,line width=0.1cm]}] (49,16.0) -- (-5,16.0) -- (-5,10) -- (2.5,10);
-
 def printToplineAndFeedbackArrow(x1, x2, x3, y1, y2):
     print('\draw[->,line width=0.1cm,arrows={{-Triangle[angle=90:{6}cm,black,fill=black,line width={5}cm]}}] ({0},{3}) -- ({1},{3}) -- ({1},{4}) -- ({2},{4});'.format(x1, x2, x3, y1, y2,lineWidth,arrowHead))
 
 def printOutputArrow(x1, x2, y1,value):
-    print('\draw[->,line width=0.1cm,arrows={{-Triangle[angle=90:{4}cm,black,fill=black,line width={3}cm]}},font=\\fontsize{{{5}}}{{{5}}}\selectfont] ({0},{2}) -- ({1},{2}) node[midway,above]{{{6}}};'.format(x1, x2, y1, lineWidth,arrowHead, fontSize, value))
+    if drawInitValues:
+        print('\draw[->,line width=0.1cm,arrows={{-Triangle[angle=90:{4}cm,black,fill=black,line width={3}cm]}},font=\\fontsize{{{5}}}{{{5}}}\selectfont] ({0},{2}) -- ({1},{2}) node[midway,above]{{{6}}};'.format(x1, x2, y1, lineWidth,arrowHead, fontSize, value))
+    else:
+        print('\draw[->,line width=0.1cm,arrows={{-Triangle[angle=90:{4}cm,black,fill=black,line width={3}cm]}},font=\\fontsize{{{5}}}{{{5}}}\selectfont] ({0},{2}) -- ({1},{2}) node[midway,above]{{}};'.format(x1, x2, y1, lineWidth,arrowHead, fontSize))
     
 def printFeedBackPolynomial(lfsr):
     count = lfsr.count(1)
@@ -146,10 +138,10 @@ def printFeedBackPolynomial(lfsr):
 
 
 #The taps. left most is the x_0 
-lfsrTaps = [1,0,0,1,0,1,0,1,0,1]
+lfsrTaps = [1,0,0,1,0,1,]
 
 #The inits. left most is the value of x_0 
-initVals = [1,0,1,0,1,1,1,0,0,0]
+initVals = [1,0,1,0,1,1,1]
 
 #We need this inorder to draw the feedback properly
 lastTapPos = 0
@@ -190,9 +182,6 @@ printToplineAndFeedbackArrow(x + (lastTapPos )* boxSize ,          #x1
 
 printOutputArrow(x + (len(lfsrTaps) -1) * boxSize + boxSize/2, x + (len(lfsrTaps) -1) * boxSize + 2 * boxSize, y, lfsrTaps[0]) 
 
-#print('\draw node[minimum size={0}cm,line width={1}cm,font=\\fontsize{{{2}}}{{{2}}}\selectfont] at ({3}, {4}) {{{5}}};'.format(boxSize,lineWidth,fontSize,x,y,value))
-
-#print('\draw node[minimum size={0}cm,line width={1}cm,font=\\fontsize{{{2}}}{{{2}}}\selectfont] at ({3}, {4}) {{{5}}};'.format(boxSize,lineWidth,fontSize,(len(lfsrTaps) -1) * boxSize + 2 * boxSize,y+boxSize/2,"1"))
 
 ###############################
 ###Feed Back Polynomail Part
@@ -202,4 +191,5 @@ printFeedBackPolynomial(lfsrTaps)
 
 #Latex Ends
 printPrologue()
- 
+         
+
