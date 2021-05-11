@@ -138,7 +138,7 @@ def printFeedBackPolynomial(lfsr):
 
 
 #The taps. left most is the x_0 
-lfsrTaps = [1,0,0,1,0,1,]
+lfsrTaps = [1,0,0,1,0,1,0]
 
 #The inits. left most is the value of x_0 
 initVals = [1,0,1,0,1,1,1]
