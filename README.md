@@ -29,3 +29,9 @@ use
 
 to produce the gif from the output images.
 
+----
+
+**The Library is free to use, just give the reference, done!** 
+
+**No liability!**
+
