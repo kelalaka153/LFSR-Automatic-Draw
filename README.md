@@ -12,9 +12,13 @@ Sample images;
 
 The First LFSR of A5/1 outputted for [another Q](https://crypto.stackexchange.com/a/89981/18298). 
 
-![image](https://i.stack.imgur.com/UsHZr.png)
+![image](https://i.stack.imgur.com/Wgo8w.png)
 
 Duing working on A5/1's LFSR many bugs were cleaned! Font size is still an issue.
 
 
 This is used in [Cryptography.SE](https://crypto.stackexchange.com/q/89828/18298) as a meta test.
+
+----
+
+Next step is clocking the LFSR and producing n images. Soon...
