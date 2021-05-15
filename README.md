@@ -19,6 +19,16 @@ Duing working on A5/1's LFSR many bugs were cleaned! Font size is still an issue
 
 This is used in [Cryptography.SE](https://crypto.stackexchange.com/q/89828/18298) as a meta test.
 
+and you can produce animations, too ( very soon the code is coming)
+
+![image](https://i.stack.imgur.com/GG2UN.gif)
+
+use 
+
+`convert -delay 50 -loop 0 lfsr*.png lfsr.gif`
+
+to produce the gif from the output images.
+
 ----
 
 Next step is clocking the LFSR and producing n images. Soon...
