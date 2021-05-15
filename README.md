@@ -29,6 +29,3 @@ use
 
 to produce the gif from the output images.
 
-----
-
-Next step is clocking the LFSR and producing n images. Soon...
