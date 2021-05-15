@@ -10,4 +10,11 @@ Sample images;
 
 ![image](https://i.stack.imgur.com/wwAR8.png)
 
+The First LFSR of A5/1 outputted for [another Q](https://crypto.stackexchange.com/a/89981/18298). 
+
+![image](https://i.stack.imgur.com/UsHZr.png)
+
+Duing working on A5/1's LFSR many bugs were cleaned! Font size is still an issue.
+
+
 This is used in [Cryptography.SE](https://crypto.stackexchange.com/q/89828/18298) as a meta test.
