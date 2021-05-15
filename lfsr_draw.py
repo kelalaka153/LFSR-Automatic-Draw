@@ -18,7 +18,7 @@ arrowHead = "0.5"
 #Size of the LFSR box cm
 boxSize = 4
 #box Color use Tikz format
-boxColor = "{{rgb:black,1;white,5}}"
+boxColor = "{{rgb:black,0;white,5}}"
 
 #used for the distance of the box variable names 
 boxBelowTextDistance = 6
@@ -33,10 +33,10 @@ xorDistance = boxSize/2
 fontSize = 100
 
 #Set True if you want the LFSR is filled with initial values.
-drawInitValues = False
+drawInitValues = True
 
 #Set True if you want the LFSR's box names are written under.
-printBoxNames = False
+printBoxNames = True
 
 #strating position of the first box.
 x = 25
@@ -54,6 +54,7 @@ def printPreample():
      print("\\usepackage{xcolor}")
      print("\\usetikzlibrary{arrows.meta,backgrounds}")
      print("\\tikzset{{white background/.style={{show background rectangle,tight background,background rectangle/.style={{fill={0} }} }} }}".format(backgorundcolor))
+#     print("\\tikzset{mynode/.style={draw, fill={{rgb:black,1;white,5}}, minimum size=4cm,line width=0.1cm,font=\fontsize{100}{100}\selectfont, label={[yshift=-6cm,style={font=\fontsize{100}{100} } ] {#1} } }}")
      print("")
      print("\\begin{document}")
      print("\\begin{tikzpicture}[white background]\n\n")
@@ -71,7 +72,7 @@ def printSquare(x1,y1,value, index):
     print('%node {0}'.format(index))
     
     if printBoxNames == True:
-        print('\t\draw node[draw, fill={7}, minimum size={3}cm,line width={4}cm,font=\\fontsize{{{5}}}{{{5}}}\selectfont, label={{[yshift=-{8}cm,style={{font=\\fontsize{{{5}}}{{{5}}} }} ] {{$x_{6}$}} }} ] at ({0}, {1}) {{{2}}};'.format(x1,y1,value,boxSize,lineWidth,fontSize,index,boxColor,boxBelowTextDistance))
+        print('\t\draw node[draw, fill={7}, minimum size={3}cm,line width={4}cm,font=\\fontsize{{{5}}}{{{5}}}\selectfont, label={{[yshift=-{8}cm,style={{font=\\fontsize{{{5}}}{{{5}}} }} ] {{$x_{{{6}}}$}} }} ] at ({0}, {1}) {{{2}}};'.format(x1,y1,value,boxSize,lineWidth,fontSize,index,boxColor,boxBelowTextDistance))
     else:
         print('\t\draw node[draw, fill={6}, minimum size={3}cm,line width={4}cm,font=\\fontsize{{{5}}}{{{5}}}\selectfont] at ({0}, {1}) {{{2}}};'.format(x1,y1,value,boxSize,lineWidth,fontSize,boxColor))
  
@@ -137,11 +138,11 @@ def printFeedBackPolynomial(lfsr):
 ###############################
 
 
-#The taps. left most is the x_0 
-lfsrTaps = [1,0,0,1,0,1,0]
+#The taps. right most is the x_0 
+lfsrTaps = [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1]
 
 #The inits. left most is the value of x_0 
-initVals = [1,0,1,0,1,1,1]
+initVals = [1,0,0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0]
 
 #We need this inorder to draw the feedback properly
 lastTapPos = 0
@@ -154,7 +155,7 @@ count = lfsrTaps.count(1)
 for i, val in enumerate(lfsrTaps):
     
     if drawInitValues == True:
-        printSquare(x + i * boxSize, y , val,len(lfsrTaps) - i -1)
+        printSquare(x + i * boxSize, y , initVals[i] ,len(lfsrTaps) - i -1)
     else:
         printSquare(x + i * boxSize, y , "",len(lfsrTaps) - i -1)
             
@@ -180,16 +181,13 @@ printToplineAndFeedbackArrow(x + (lastTapPos )* boxSize ,          #x1
                              y                                              #y2
                             )
 
-printOutputArrow(x + (len(lfsrTaps) -1) * boxSize + boxSize/2, x + (len(lfsrTaps) -1) * boxSize + 2 * boxSize, y, lfsrTaps[0]) 
-
+printOutputArrow(x + (len(lfsrTaps) -1) * boxSize + boxSize/2, x + (len(lfsrTaps) -1) * boxSize + 2 * boxSize, y, initVals[-1]) 
 
 ###############################
 ###Feed Back Polynomail Part
 ###############################
 
-printFeedBackPolynomial(lfsrTaps)
+#printFeedBackPolynomial(lfsrTaps)
 
 #Latex Ends
 printPrologue()
-         
-
