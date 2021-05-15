@@ -21,7 +21,7 @@ This is used in [Cryptography.SE](https://crypto.stackexchange.com/q/89828/18298
 
 and you can produce animations, too ( very soon the code is coming)
 
-![image](https://i.stack.imgur.com/GG2UN.gif)
+![image](https://i.stack.imgur.com/GV4IU.gif)
 
 use 
 
